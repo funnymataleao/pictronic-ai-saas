@@ -21,12 +21,8 @@ interface LoginSheetProps {
 }
 
 export function LoginSheet({ trigger }: LoginSheetProps) {
-  const { isLoginOpen, closeLogin, openRegister, openLogin } = useAuth();
+  const { isLoginOpen, closeLogin, openLogin, openRegister } = useAuth();
 
-  React.useEffect(() => {
-    if (trigger && isLoginOpen === false) {
-    }
-  }, []);
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
@@ -67,7 +63,7 @@ export function LoginSheet({ trigger }: LoginSheetProps) {
   };
 
   return (
-    <Sheet open={isLoginOpen} onOpenChange={(open) => !open && closeLogin()}>
+    <Sheet open={isLoginOpen} onOpenChange={(open) => open ? openLogin() : closeLogin()}>
       {trigger && <SheetTrigger asChild>{trigger}</SheetTrigger>}
       <SheetContent side="right" className="w-full sm:max-w-lg bg-neutral-900 border-white/10">
         <SheetHeader>
