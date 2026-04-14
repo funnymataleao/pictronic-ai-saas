@@ -1,0 +1,1 @@
+bridge auth check: OK nodeId=node_96e4225b

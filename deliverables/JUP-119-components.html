@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pictronic Design System — Components</title>
+    <link rel="stylesheet" href="JUP-119-design-system.css">
+</head>
+<body>
+    <div class="ds-container">
+        <header class="ds-header">
+            <h1>Components</h1>
+            <p class="ds-subtitle">Reusable UI Components and Patterns</p>
+        </header>
+
+        <nav class="ds-nav">
+            <a href="JUP-119-design-system-index.html" class="ds-nav-link">Overview</a>
+            <a href="JUP-119-foundations.html" class="ds-nav-link">Foundations</a>
+            <a href="JUP-119-components.html" class="ds-nav-link active">Components</a>
+            <a href="JUP-119-governance.html" class="ds-nav-link">Governance</a>
+        </nav>
+
+        <main class="ds-content">
+            <section class="ds-section">
+                <h2>Panels & Cards</h2>
+                
+                <h3>Generic Panel</h3>
+                <div class="ds-demo">
+                    <div class="panel">
+                        <h4>Panel Title</h4>
+                        <p>This is a generic panel with glassmorphism effect.</p>
+                    </div>
+                </div>
+                <pre><code>.panel {
+    color-mix(in srgb, var(--panel) 88%, transparent);
+    backdrop-filter: blur(10px);
+    border-radius: 18px;
+}</code></pre>
+
+                <h3>Masonry Card</h3>
+                <div class="ds-demo">
+                    <div class="masonry-card">
+                        <div class="masonry-card-image"></div>
+                        <div class="masonry-card-content">
+                            <h4>Card Title</h4>
+                            <p>Card description goes here.</p>
+                        </div>
+                    </div>
+                </div>
+                <pre><code>.masonry-card {
+    border-radius: 16px;
+    box-shadow: 0 18px 38px rgba(2, 6, 23, 0.2);
+}
+
+.masonry-card:hover {
+    transform: translateY(-4px);
+    box-shadow: /* enhanced */;
+    border-color: highlight;
+}</code></pre>
+            </section>
+
+            <section class="ds-section">
+                <h2>Buttons</h2>
+                
+                <h3>Brand Button</h3>
+                <div class="ds-demo">
+                    <button class="btn-brand">Generate</button>
+                </div>
+                <pre><code>.btn-brand {
+    background: var(--brand);
+    color: #fff;
+    border-radius: 9999px;
+}</code></pre>
+
+                <h3>Quiet Button</h3>
+                <div class="ds-demo">
+                    <button class="btn-quiet">Cancel</button>
+                </div>
+                <pre><code>.btn-quiet {
+    background: var(--panel-alt);
+    border-color: transition to brand-mix;
+}</code></pre>
+            </section>
+
+            <section class="ds-section">
+                <h2>Autonomy Panel</h2>
+                <p>Specialized components for system health and automated recovery monitoring.</p>
+                
+                <div class="ds-demo">
+                    <div class="panel autonomy-panel">
+                        <div class="autonomy-grid">
+                            <div class="autonomy-sub-item">
+                                <span class="autonomy-label">System Status</span>
+                                <span class="autonomy-value">Operational</span>
+                            </div>
+                            <div class="autonomy-sub-item">
+                                <span class="autonomy-label">Active Jobs</span>
+                                <span class="autonomy-value">42</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="ds-section">
+                <h2>Status Pills</h2>
+                <div class="ds-status-pills">
+                    <span class="status-pill status-generating">Generating</span>
+                    <span class="status-pill status-processing">Processing</span>
+                    <span class="status-pill status-ready">Ready</span>
+                    <span class="status-pill status-approved">Approved</span>
+                    <span class="status-pill status-failed">Failed</span>
+                    <span class="status-pill status-idle">Idle</span>
+                </div>
+            </section>
+        </main>
+
+        <footer class="ds-footer">
+            <p>Last updated: 2026-04-14 | Version 1.1</p>
+        </footer>
+    </div>
+</body>
+</html>

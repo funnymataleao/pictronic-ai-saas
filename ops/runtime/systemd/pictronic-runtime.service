@@ -1,0 +1,19 @@
+[Unit]
+Description=Pictronic Next.js Runtime
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/mataleao/.paperclip/instances/default/projects/fb3b0db7-d166-45d8-93b9-552802652d7d/4bbbf7cb-906f-4da9-93f5-189a4de11489/_default
+Environment=PICTRONIC_RUNTIME_ENV_FILE=/home/mataleao/.paperclip/instances/default/projects/fb3b0db7-d166-45d8-93b9-552802652d7d/4bbbf7cb-906f-4da9-93f5-189a4de11489/_default/.env.runtime
+Environment=PICTRONIC_PROJECT_ROOT=/home/mataleao/.paperclip/instances/default/projects/fb3b0db7-d166-45d8-93b9-552802652d7d/4bbbf7cb-906f-4da9-93f5-189a4de11489/_default
+EnvironmentFile=-/home/mataleao/.paperclip/instances/default/projects/fb3b0db7-d166-45d8-93b9-552802652d7d/4bbbf7cb-906f-4da9-93f5-189a4de11489/_default/.env.runtime
+ExecStart=/usr/bin/bash -lc '/home/mataleao/.paperclip/instances/default/projects/fb3b0db7-d166-45d8-93b9-552802652d7d/4bbbf7cb-906f-4da9-93f5-189a4de11489/_default/ops/runtime/verify-runtime-env.sh && /usr/bin/npm run dev'
+Restart=always
+RestartSec=2
+Environment=NODE_ENV=development
+StandardOutput=append:/home/mataleao/.paperclip/instances/default/projects/fb3b0db7-d166-45d8-93b9-552802652d7d/4bbbf7cb-906f-4da9-93f5-189a4de11489/_default/docs/e2e/pictronic-runtime.systemd.log
+StandardError=append:/home/mataleao/.paperclip/instances/default/projects/fb3b0db7-d166-45d8-93b9-552802652d7d/4bbbf7cb-906f-4da9-93f5-189a4de11489/_default/docs/e2e/pictronic-runtime.systemd.err.log
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,16 @@
+{
+  "grace_until_epoch": 1775830765,
+  "last_grace_reason": "suppressed_500_probe_failure",
+  "log_offsets": {
+    "runtime_error_log": 263303,
+    "connector_error_log": 168011
+  },
+  "last_status": "grace",
+  "last_event_key": "401:connector_error_log:signature=401",
+  "last_recovery_epoch": 1775830720,
+  "last_recovery_duration_seconds": 0.0,
+  "last_success_at": "2026-04-10T14:18:40+00:00",
+  "last_marker": "health:network-error=<urlopen error [Errno 111] Connection refused>|bridge_register:network-error=<urlopen error [Errno 111] Connection refused>|bridge_jobs:network-error=<urlopen error [Errno 111] Connection refused>|bridge_poll:network-error=<urlopen error [Errno 111] Connection refused>",
+  "last_grace_remaining_seconds": 45,
+  "last_grace_event_at": "2026-04-10T14:18:40+00:00"
+}

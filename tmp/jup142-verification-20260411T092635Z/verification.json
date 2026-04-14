@@ -1,0 +1,112 @@
+{
+  "generatedAt": "2026-04-11T09:26:41.082Z",
+  "base": "http://127.0.0.1:3000/",
+  "probes": [
+    {
+      "name": "desktop-1440x900",
+      "status": 200,
+      "headerSelector": ".landing-nav-body",
+      "headerRect": {
+        "x": 120,
+        "y": 27.1875,
+        "width": 1200,
+        "height": 61.1875,
+        "left": 120,
+        "right": 1320
+      },
+      "contentRect": {
+        "x": 120,
+        "y": 112.375,
+        "width": 1200,
+        "height": 738,
+        "left": 120,
+        "right": 1320
+      },
+      "widthDeltaPx": 0,
+      "leftDeltaPx": 0,
+      "headerStyle": {
+        "backdropFilter": "blur(0px)",
+        "filter": "none",
+        "background": "rgba(5, 11, 20, 0.72) none repeat scroll 0% 0% / auto padding-box border-box",
+        "backgroundColor": "rgba(5, 11, 20, 0.72)"
+      },
+      "navShellRect": {
+        "x": 0,
+        "y": 19.1875,
+        "width": 1440,
+        "height": 69.1875,
+        "left": 0,
+        "right": 1440
+      },
+      "navBodyRect": {
+        "x": 120,
+        "y": 27.1875,
+        "width": 1200,
+        "height": 61.1875,
+        "left": 120,
+        "right": 1320
+      },
+      "mobileNavRect": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "left": 0,
+        "right": 0
+      }
+    },
+    {
+      "name": "mobile-iphone13",
+      "status": 200,
+      "headerSelector": ".landing-mobile-nav",
+      "headerRect": {
+        "x": 8,
+        "y": 15.984375,
+        "width": 374,
+        "height": 66.375,
+        "left": 8,
+        "right": 382
+      },
+      "contentRect": {
+        "x": 8,
+        "y": 106.359375,
+        "width": 374,
+        "height": 556.953125,
+        "left": 8,
+        "right": 382
+      },
+      "widthDeltaPx": 0,
+      "leftDeltaPx": 0,
+      "headerStyle": {
+        "backdropFilter": "blur(0px)",
+        "filter": "none",
+        "background": "rgba(5, 11, 20, 0.76) none repeat scroll 0% 0% / auto padding-box border-box",
+        "backgroundColor": "rgba(5, 11, 20, 0.76)"
+      },
+      "navShellRect": {
+        "x": 0,
+        "y": 6.390625,
+        "width": 390,
+        "height": 75.96875,
+        "left": 0,
+        "right": 390
+      },
+      "navBodyRect": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "left": 0,
+        "right": 0
+      },
+      "mobileNavRect": {
+        "x": 8,
+        "y": 15.984375,
+        "width": 374,
+        "height": 66.375,
+        "left": 8,
+        "right": 382
+      }
+    }
+  ]
+}

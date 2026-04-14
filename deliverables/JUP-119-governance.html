@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pictronic Design System — Governance</title>
+    <link rel="stylesheet" href="JUP-119-design-system.css">
+</head>
+<body>
+    <div class="ds-container">
+        <header class="ds-header">
+            <h1>Governance</h1>
+            <p class="ds-subtitle">Guidelines for Maintaining Design System Consistency</p>
+        </header>
+
+        <nav class="ds-nav">
+            <a href="JUP-119-design-system-index.html" class="ds-nav-link">Overview</a>
+            <a href="JUP-119-foundations.html" class="ds-nav-link">Foundations</a>
+            <a href="JUP-119-components.html" class="ds-nav-link">Components</a>
+            <a href="JUP-119-governance.html" class="ds-nav-link active">Governance</a>
+        </nav>
+
+        <main class="ds-content">
+            <section class="ds-section">
+                <h2>Overview</h2>
+                <p>This document outlines guidelines for maintaining consistency in the Pictronic design system. Following these guidelines ensures a unified user experience across all surfaces of the product.</p>
+            </section>
+
+            <section class="ds-section">
+                <h2>Core Rules</h2>
+                <ul class="ds-rules">
+                    <li><strong>Use Design Tokens:</strong> Always use CSS custom properties (tokens) defined in this system instead of hardcoded values.</li>
+                    <li><strong>Dark Mode Default:</strong> Design primarily for dark mode. Light mode is secondary.</li>
+                    <li><strong>Content-First:</strong> Prioritize content density and information display over decorative elements.</li>
+                    <li><strong>Consistent Spacing:</strong> Use the defined spacing scale (4px base unit).</li>
+                    <li><strong>Accessibility:</strong> Ensure all components meet WCAG 2.1 AA standards.</li>
+                </ul>
+            </section>
+
+            <section class="ds-section">
+                <h2>Updating Tokens</h2>
+                <p>When updating design tokens, follow this process:</p>
+                <ol class="ds-process">
+                    <li>Update the token value in the CSS custom properties.</li>
+                    <li>Test changes across all component types.</li>
+                    <li>Document any breaking changes.</li>
+                    <li>Notify the team of updates.</li>
+                </ol>
+            </section>
+
+            <section class="ds-section">
+                <h2>Adding New Components</h2>
+                <p>Before adding new components:</p>
+                <ul class="ds-rules">
+                    <li>Check if existing components can fulfill the need.</li>
+                    <li>Follow the naming conventions in this system.</li>
+                    <li>Include hover, active, and disabled states.</li>
+                    <li>Document the component in this system.</li>
+                </ul>
+            </section>
+
+            <section class="ds-section">
+                <h2>Version History</h2>
+                <table class="ds-table">
+                    <thead>
+                        <tr>
+                            <th>Version</th>
+                            <th>Date</th>
+                            <th>Changes</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1.1</td>
+                            <td>2026-04-14</td>
+                            <td>Initial design system documentation</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+
+        <footer class="ds-footer">
+            <p>Last updated: 2026-04-14 | Version 1.1</p>
+        </footer>
+    </div>
+</body>
+</html>

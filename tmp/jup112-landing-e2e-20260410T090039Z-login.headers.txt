@@ -1,0 +1,9 @@
+HTTP/1.1 200 OK
+vary: RSC, Next-Router-State-Tree, Next-Router-Prefetch
+content-type: application/json
+set-cookie: pictronic_session=1; Path=/; Expires=Fri, 10 Apr 2026 21:00:42 GMT; Max-Age=43200; HttpOnly; SameSite=lax
+Date: Fri, 10 Apr 2026 09:00:42 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Transfer-Encoding: chunked
+

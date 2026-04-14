@@ -1,0 +1,17 @@
+node_modules/
+.next/
+.next-build/
+out/
+build/
+.env
+.env.local
+.env.runtime
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.vercel
+.turbo
+bridge.env
+.github/
+docs/e2e/

@@ -1,0 +1,13 @@
+{
+  "grace_until_epoch": 1775830713,
+  "last_grace_reason": "startup",
+  "log_offsets": {
+    "runtime_error_log": 262001,
+    "connector_error_log": 168011
+  },
+  "last_status": "healthy",
+  "last_event_key": "401:connector_error_log:signature=401",
+  "last_recovery_epoch": 1775830668,
+  "last_recovery_duration_seconds": 0.0,
+  "last_success_at": "2026-04-10T14:17:48+00:00"
+}

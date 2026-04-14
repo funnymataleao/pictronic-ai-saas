@@ -1,0 +1,11 @@
+HTTP/1.1 200 OK
+Vary: RSC, Next-Router-State-Tree, Next-Router-Prefetch, Accept-Encoding
+link: </_next/static/media/4c9affa5bc8f420e-s.p.woff2>; rel=preload; as="font"; crossorigin=""; type="font/woff2"
+Cache-Control: no-store, must-revalidate
+X-Powered-By: Next.js
+Content-Type: text/html; charset=utf-8
+Date: Thu, 09 Apr 2026 23:25:46 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Transfer-Encoding: chunked
+

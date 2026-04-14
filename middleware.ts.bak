@@ -1,0 +1,22 @@
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
+
+export function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
+  // 1. Абсолютный игнор для системных файлов и API
+  if (
+    pathname.startsWith('/_next') || 
+    pathname.startsWith('/api') || 
+    pathname.includes('.') // файлы типа favicon.ico, .js, .css
+  ) {
+    return NextResponse.next();
+  }
+
+  // 2. Временная заглушка, чтобы ничего не редиректило, пока мы не починим логин
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+};

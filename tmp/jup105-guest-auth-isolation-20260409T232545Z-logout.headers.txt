@@ -1,0 +1,9 @@
+HTTP/1.1 307 Temporary Redirect
+vary: RSC, Next-Router-State-Tree, Next-Router-Prefetch
+location: http://localhost:3000/
+set-cookie: pictronic_session=; Path=/; Max-Age=0
+Date: Thu, 09 Apr 2026 23:25:47 GMT
+Connection: keep-alive
+Keep-Alive: timeout=5
+Transfer-Encoding: chunked
+

@@ -1,0 +1,777 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2026-04-11T09:00:00.000Z",
+  "__export_source": "pictronic-mvp",
+  "resources": [
+    {
+      "_id": "wrk_pictronic_mvp",
+      "_type": "workspace",
+      "name": "Pictronic MVP API",
+      "scope": "collection"
+    },
+    {
+      "_id": "env_pictronic_base",
+      "_type": "environment",
+      "parentId": "wrk_pictronic_mvp",
+      "name": "Base Environment",
+      "data": {
+        "base_url_runtime": "http://localhost:3000",
+        "base_url_control": "http://localhost:3100",
+        "project_id": "proj_demo",
+        "asset_id": "asset_demo",
+        "job_id": "bjob_demo",
+        "node_id": "node_demo",
+        "machine_id": "machine_demo",
+        "idempotency_key": "demo-idem-001",
+        "drill_idempotency_key": "jup152-drill-001",
+        "bridge_bootstrap_key": "bridge-bootstrap-dev",
+        "bridge_admin_key": "bridge-admin-dev",
+        "connection_token": "pct_bridge_token",
+        "connection_token_invalid": "pct_bridge_invalid_token",
+        "ftp_host": "ftp.example.com",
+        "ftp_login": "demo",
+        "ftp_password": "demo",
+        "session_cookie": ""
+      }
+    },
+    {
+      "_id": "grp_auth",
+      "_type": "request_group",
+      "parentId": "wrk_pictronic_mvp",
+      "name": "Auth"
+    },
+    {
+      "_id": "req_auth_login",
+      "_type": "request",
+      "parentId": "grp_auth",
+      "name": "POST /api/auth/login",
+      "method": "POST",
+      "url": "{{ _.base_url_runtime }}/api/auth/login",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"username\": \"admin\",\n  \"password\": \"changeme\"\n}"
+      }
+    },
+    {
+      "_id": "req_auth_logout",
+      "_type": "request",
+      "parentId": "grp_auth",
+      "name": "GET /api/auth/logout",
+      "method": "GET",
+      "url": "{{ _.base_url_runtime }}/api/auth/logout",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "grp_projects",
+      "_type": "request_group",
+      "parentId": "wrk_pictronic_mvp",
+      "name": "Projects"
+    },
+    {
+      "_id": "req_projects_list",
+      "_type": "request",
+      "parentId": "grp_projects",
+      "name": "GET /api/projects",
+      "method": "GET",
+      "url": "{{ _.base_url_runtime }}/api/projects",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_projects_create",
+      "_type": "request",
+      "parentId": "grp_projects",
+      "name": "POST /api/projects",
+      "method": "POST",
+      "url": "{{ _.base_url_runtime }}/api/projects",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"name\": \"Demo Project\"\n}"
+      }
+    },
+    {
+      "_id": "req_project_get",
+      "_type": "request",
+      "parentId": "grp_projects",
+      "name": "GET /api/projects/{projectId}",
+      "method": "GET",
+      "url": "{{ _.base_url_runtime }}/api/projects/{{ _.project_id }}",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_project_assets",
+      "_type": "request",
+      "parentId": "grp_projects",
+      "name": "GET /api/projects/{projectId}/assets",
+      "method": "GET",
+      "url": "{{ _.base_url_runtime }}/api/projects/{{ _.project_id }}/assets",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_project_generate",
+      "_type": "request",
+      "parentId": "grp_projects",
+      "name": "POST /api/projects/{projectId}/generate",
+      "method": "POST",
+      "url": "{{ _.base_url_runtime }}/api/projects/{{ _.project_id }}/generate",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Idempotency-Key",
+          "value": "{{ _.idempotency_key }}"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"prompt\": \"cinematic mountain sunrise\",\n  \"count\": 1\n}"
+      }
+    },
+    {
+      "_id": "grp_bridge_nodes",
+      "_type": "request_group",
+      "parentId": "wrk_pictronic_mvp",
+      "name": "Bridge Nodes"
+    },
+    {
+      "_id": "req_bridge_nodes_list",
+      "_type": "request",
+      "parentId": "grp_bridge_nodes",
+      "name": "GET /api/bridge/nodes",
+      "method": "GET",
+      "url": "{{ _.base_url_runtime }}/api/bridge/nodes",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_bridge_nodes_register",
+      "_type": "request",
+      "parentId": "grp_bridge_nodes",
+      "name": "POST /api/bridge/nodes/register",
+      "method": "POST",
+      "url": "{{ _.base_url_runtime }}/api/bridge/nodes/register",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "x-bridge-bootstrap-key",
+          "value": "{{ _.bridge_bootstrap_key }}"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"machineId\": \"{{ _.machine_id }}\",\n  \"capabilities\": [\"generate\", \"metadata\", \"upload\", \"comfyui\", \"ollama\"]\n}"
+      }
+    },
+    {
+      "_id": "req_bridge_nodes_auth_metrics",
+      "_type": "request",
+      "parentId": "grp_bridge_nodes",
+      "name": "GET /api/bridge/nodes/auth-metrics",
+      "method": "GET",
+      "url": "{{ _.base_url_runtime }}/api/bridge/nodes/auth-metrics",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_bridge_node_poll",
+      "_type": "request",
+      "parentId": "grp_bridge_nodes",
+      "name": "POST /api/bridge/nodes/{nodeId}/poll",
+      "method": "POST",
+      "url": "{{ _.base_url_runtime }}/api/bridge/nodes/{{ _.node_id }}/poll",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.connection_token }}"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"capabilities\": [\"generate\", \"upload\"]\n}"
+      }
+    },
+    {
+      "_id": "req_bridge_node_heartbeat",
+      "_type": "request",
+      "parentId": "grp_bridge_nodes",
+      "name": "POST /api/bridge/nodes/{nodeId}/heartbeat",
+      "method": "POST",
+      "url": "{{ _.base_url_runtime }}/api/bridge/nodes/{{ _.node_id }}/heartbeat",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.connection_token }}"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"capabilities\": [\"generate\", \"metadata\", \"upload\"]\n}"
+      }
+    },
+    {
+      "_id": "req_bridge_token_rotate",
+      "_type": "request",
+      "parentId": "grp_bridge_nodes",
+      "name": "POST /api/bridge/nodes/{nodeId}/connection-token/rotate",
+      "method": "POST",
+      "url": "{{ _.base_url_runtime }}/api/bridge/nodes/{{ _.node_id }}/connection-token/rotate",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "x-bridge-admin-key",
+          "value": "{{ _.bridge_admin_key }}"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{}"
+      }
+    },
+    {
+      "_id": "grp_bridge_jobs",
+      "_type": "request_group",
+      "parentId": "wrk_pictronic_mvp",
+      "name": "Bridge Jobs"
+    },
+    {
+      "_id": "req_bridge_jobs_get",
+      "_type": "request",
+      "parentId": "grp_bridge_jobs",
+      "name": "GET /api/bridge/jobs",
+      "method": "GET",
+      "url": "{{ _.base_url_runtime }}/api/bridge/jobs",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_bridge_jobs_post",
+      "_type": "request",
+      "parentId": "grp_bridge_jobs",
+      "name": "POST /api/bridge/jobs",
+      "method": "POST",
+      "url": "{{ _.base_url_runtime }}/api/bridge/jobs",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "x-bridge-bootstrap-key",
+          "value": "{{ _.bridge_bootstrap_key }}"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"kind\": \"generate\",\n  \"payload\": {\n    \"prompt\": \"demo\"\n  }\n}"
+      }
+    },
+    {
+      "_id": "req_bridge_job_result",
+      "_type": "request",
+      "parentId": "grp_bridge_jobs",
+      "name": "POST /api/bridge/jobs/{jobId}/result",
+      "method": "POST",
+      "url": "{{ _.base_url_runtime }}/api/bridge/jobs/{{ _.job_id }}/result",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.connection_token }}"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"outcome\": \"completed\",\n  \"result\": {\n    \"imagePath\": \"/tmp/output.png\"\n  }\n}"
+      }
+    },
+    {
+      "_id": "grp_runtime",
+      "_type": "request_group",
+      "parentId": "wrk_pictronic_mvp",
+      "name": "Runtime Health"
+    },
+    {
+      "_id": "req_runtime_health",
+      "_type": "request",
+      "parentId": "grp_runtime",
+      "name": "GET /api/health",
+      "method": "GET",
+      "url": "{{ _.base_url_runtime }}/api/health?view=dashboard",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_runtime_readiness",
+      "_type": "request",
+      "parentId": "grp_runtime",
+      "name": "GET /api/runtime/readiness",
+      "method": "GET",
+      "url": "{{ _.base_url_runtime }}/api/runtime/readiness",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_job_events",
+      "_type": "request",
+      "parentId": "grp_runtime",
+      "name": "GET /api/job-events",
+      "method": "GET",
+      "url": "{{ _.base_url_runtime }}/api/job-events",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_job_events_summary",
+      "_type": "request",
+      "parentId": "grp_runtime",
+      "name": "GET /api/job-events/run-summary",
+      "method": "GET",
+      "url": "{{ _.base_url_runtime }}/api/job-events/run-summary?type=generate",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "grp_local_node",
+      "_type": "request_group",
+      "parentId": "wrk_pictronic_mvp",
+      "name": "Local Node"
+    },
+    {
+      "_id": "req_local_preflight",
+      "_type": "request",
+      "parentId": "grp_local_node",
+      "name": "GET /api/local-node/preflight",
+      "method": "GET",
+      "url": "{{ _.base_url_runtime }}/api/local-node/preflight",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_local_connection_token",
+      "_type": "request",
+      "parentId": "grp_local_node",
+      "name": "POST /api/local-node/connection-token",
+      "method": "POST",
+      "url": "{{ _.base_url_runtime }}/api/local-node/connection-token",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"machineId\": \"{{ _.machine_id }}\",\n  \"capabilities\": [\"comfyui\", \"ollama\"]\n}"
+      }
+    },
+    {
+      "_id": "grp_uploads",
+      "_type": "request_group",
+      "parentId": "wrk_pictronic_mvp",
+      "name": "Uploads & Connections"
+    },
+    {
+      "_id": "req_uploads_get",
+      "_type": "request",
+      "parentId": "grp_uploads",
+      "name": "GET /api/uploads",
+      "method": "GET",
+      "url": "{{ _.base_url_runtime }}/api/uploads?projectId={{ _.project_id }}",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ]
+    },
+    {
+      "_id": "req_uploads_adobe",
+      "_type": "request",
+      "parentId": "grp_uploads",
+      "name": "POST /api/uploads/adobe",
+      "method": "POST",
+      "url": "{{ _.base_url_runtime }}/api/uploads/adobe",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Idempotency-Key",
+          "value": "{{ _.idempotency_key }}"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"projectId\": \"{{ _.project_id }}\",\n  \"assetIds\": [\"{{ _.asset_id }}\"]\n}"
+      }
+    },
+    {
+      "_id": "req_connection_adobe",
+      "_type": "request",
+      "parentId": "grp_uploads",
+      "name": "POST /api/stock-connections/adobe",
+      "method": "POST",
+      "url": "{{ _.base_url_runtime }}/api/stock-connections/adobe",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"ftpHost\": \"{{ _.ftp_host }}\",\n  \"ftpLogin\": \"{{ _.ftp_login }}\",\n  \"ftpPassword\": \"{{ _.ftp_password }}\"\n}"
+      }
+    },
+    {
+      "_id": "req_connection_adobe_test",
+      "_type": "request",
+      "parentId": "grp_uploads",
+      "name": "POST /api/stock-connections/adobe/test",
+      "method": "POST",
+      "url": "{{ _.base_url_runtime }}/api/stock-connections/adobe/test",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"ftpHost\": \"{{ _.ftp_host }}\",\n  \"ftpLogin\": \"{{ _.ftp_login }}\",\n  \"ftpPassword\": \"{{ _.ftp_password }}\"\n}"
+      }
+    },
+    {
+      "_id": "grp_reliability_drills",
+      "_type": "request_group",
+      "parentId": "wrk_pictronic_mvp",
+      "name": "Reliability Drills (JUP-152)"
+    },
+    {
+      "_id": "req_drill_local_token_reissue",
+      "_type": "request",
+      "parentId": "grp_reliability_drills",
+      "name": "Drill 1: POST /api/local-node/connection-token (re-issue/rotate)",
+      "method": "POST",
+      "url": "{{ _.base_url_runtime }}/api/local-node/connection-token",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"machineId\": \"{{ _.machine_id }}\",\n  \"capabilities\": [\"generate\", \"upload\"]\n}"
+      }
+    },
+    {
+      "_id": "req_drill_poll_invalid_token",
+      "_type": "request",
+      "parentId": "grp_reliability_drills",
+      "name": "Drill 2: POST /api/bridge/nodes/{nodeId}/poll (invalid token => 401)",
+      "method": "POST",
+      "url": "{{ _.base_url_runtime }}/api/bridge/nodes/{{ _.node_id }}/poll",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.connection_token_invalid }}"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"capabilities\": [\"generate\", \"upload\"]\n}"
+      }
+    },
+    {
+      "_id": "req_drill_poll_valid_token",
+      "_type": "request",
+      "parentId": "grp_reliability_drills",
+      "name": "Drill 3: POST /api/bridge/nodes/{nodeId}/poll (valid token => 200)",
+      "method": "POST",
+      "url": "{{ _.base_url_runtime }}/api/bridge/nodes/{{ _.node_id }}/poll",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer {{ _.connection_token }}"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"capabilities\": [\"generate\", \"upload\"]\n}"
+      }
+    },
+    {
+      "_id": "req_drill_rotate_token",
+      "_type": "request",
+      "parentId": "grp_reliability_drills",
+      "name": "Drill 4: POST /api/bridge/nodes/{nodeId}/connection-token/rotate",
+      "method": "POST",
+      "url": "{{ _.base_url_runtime }}/api/bridge/nodes/{{ _.node_id }}/connection-token/rotate",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "x-bridge-admin-key",
+          "value": "{{ _.bridge_admin_key }}"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{}"
+      }
+    },
+    {
+      "_id": "req_drill_upload_enqueue",
+      "_type": "request",
+      "parentId": "grp_reliability_drills",
+      "name": "Drill 5: POST /api/uploads/adobe (enqueue path)",
+      "method": "POST",
+      "url": "{{ _.base_url_runtime }}/api/uploads/adobe",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Idempotency-Key",
+          "value": "{{ _.drill_idempotency_key }}"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"provider\": \"adobe\",\n  \"projectId\": \"{{ _.project_id }}\",\n  \"assetIds\": [\"{{ _.asset_id }}\"]\n}"
+      }
+    },
+    {
+      "_id": "req_drill_adobe_connection_test",
+      "_type": "request",
+      "parentId": "grp_reliability_drills",
+      "name": "Drill 6: POST /api/stock-connections/adobe/test",
+      "method": "POST",
+      "url": "{{ _.base_url_runtime }}/api/stock-connections/adobe/test",
+      "headers": [
+        {
+          "name": "Content-Type",
+          "value": "application/json"
+        },
+        {
+          "name": "Accept",
+          "value": "application/json"
+        }
+      ],
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"ftpHost\": \"{{ _.ftp_host }}\",\n  \"ftpLogin\": \"{{ _.ftp_login }}\",\n  \"ftpPassword\": \"{{ _.ftp_password }}\"\n}"
+      }
+    },
+    {
+      "_id": "grp_control_plane",
+      "_type": "request_group",
+      "parentId": "wrk_pictronic_mvp",
+      "name": "Paperclip Control Plane (:3100)"
+    },
+    {
+      "_id": "req_control_me",
+      "_type": "request",
+      "parentId": "grp_control_plane",
+      "name": "GET /api/agents/me",
+      "method": "GET",
+      "url": "{{ _.base_url_control }}/api/agents/me",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer <paperclip_api_key>"
+        }
+      ]
+    },
+    {
+      "_id": "req_control_inbox",
+      "_type": "request",
+      "parentId": "grp_control_plane",
+      "name": "GET /api/agents/me/inbox-lite",
+      "method": "GET",
+      "url": "{{ _.base_url_control }}/api/agents/me/inbox-lite",
+      "headers": [
+        {
+          "name": "Accept",
+          "value": "application/json"
+        },
+        {
+          "name": "Authorization",
+          "value": "Bearer <paperclip_api_key>"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pictronic Design System — Foundations</title>
+    <link rel="stylesheet" href="JUP-119-design-system.css">
+</head>
+<body>
+    <div class="ds-container">
+        <header class="ds-header">
+            <h1>Foundations</h1>
+            <p class="ds-subtitle">Design Tokens — Colors, Typography, Spacing</p>
+        </header>
+
+        <nav class="ds-nav">
+            <a href="JUP-119-design-system-index.html" class="ds-nav-link">Overview</a>
+            <a href="JUP-119-foundations.html" class="ds-nav-link active">Foundations</a>
+            <a href="JUP-119-components.html" class="ds-nav-link">Components</a>
+            <a href="JUP-119-governance.html" class="ds-nav-link">Governance</a>
+        </nav>
+
+        <main class="ds-content">
+            <section class="ds-section">
+                <h2>Color Palette</h2>
+                <p>Base colors defined in HSL for compatibility with shadcn/ui and Tailwind.</p>
+                
+                <h3>Core Colors</h3>
+                <div class="ds-color-grid">
+                    <div class="ds-color-swatch" style="background: #18181b;">
+                        <span class="ds-color-label">Background</span>
+                        <span class="ds-color-token">--background</span>
+                        <span class="ds-color-value">#18181b</span>
+                    </div>
+                    <div class="ds-color-swatch" style="background: #fafafa;">
+                        <span class="ds-color-label">Foreground</span>
+                        <span class="ds-color-token">--foreground</span>
+                        <span class="ds-color-value">#fafafa</span>
+                    </div>
+                    <div class="ds-color-swatch" style="background: #1c1c1f;">
+                        <span class="ds-color-label">Surface/Panel</span>
+                        <span class="ds-color-token">--card</span>
+                        <span class="ds-color-value">#1c1c1f</span>
+                    </div>
+                    <div class="ds-color-swatch" style="background: #2a2a2e;">
+                        <span class="ds-color-label">Alt Panel</span>
+                        <span class="ds-color-token">--panel-alt</span>
+                        <span class="ds-color-value">#2a2a2e</span>
+                    </div>
+                    <div class="ds-color-swatch" style="background: #34343a;">
+                        <span class="ds-color-label">Border</span>
+                        <span class="ds-color-token">--border</span>
+                        <span class="ds-color-value">#34343a</span>
+                    </div>
+                    <div class="ds-color-swatch" style="background: #3b82f6;">
+                        <span class="ds-color-label">Primary/Brand</span>
+                        <span class="ds-color-token">--primary</span>
+                        <span class="ds-color-value">#3b82f6</span>
+                    </div>
+                    <div class="ds-color-swatch" style="background: #22d3ee;">
+                        <span class="ds-color-label">Accent/Neon</span>
+                        <span class="ds-color-token">accent</span>
+                        <span class="ds-color-value">#22d3ee</span>
+                    </div>
+                </div>
+
+                <h3>Semantic Colors</h3>
+                <div class="ds-color-grid">
+                    <div class="ds-color-swatch" style="background: #12b76a;">
+                        <span class="ds-color-label">Success</span>
+                        <span class="ds-color-token">--ok</span>
+                        <span class="ds-color-value">#12b76a</span>
+                    </div>
+                    <div class="ds-color-swatch" style="background: #f79009;">
+                        <span class="ds-color-label">Warning</span>
+                        <span class="ds-color-token">--warn</span>
+                        <span class="ds-color-value">#f79009</span>
+                    </div>
+                    <div class="ds-color-swatch" style="background: #f04438;">
+                        <span class="ds-color-label">Error</span>
+                        <span class="ds-color-token">--bad</span>
+                        <span class="ds-color-value">#f04438</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="ds-section">
+                <h2>Status Pill Colors</h2>
+                <table class="ds-table">
+                    <thead>
+                        <tr>
+                            <th>Status</th>
+                            <th>Text Color</th>
+                            <th>Background</th>
+                            <th>Border</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Generating/Processing</td>
+                            <td style="color: #67b5ff;">#67b5ff</td>
+                            <td style="background: #0b233d;">#0b233d</td>
+                            <td style="background: #164a77;">#164a77</td>
+                        </tr>
+                        <tr>
+                            <td>Recovering</td>
+                            <td style="color: #9dd4ff;">#9dd4ff</td>
+                            <td style="background: #102946;">#102946</td>
+                            <td style="background: #2b5e92;">#2b5e92</td>
+                        </tr>
+                        <tr>
+                            <td>Ready/Approved/Uploaded</td>
+                            <td style="color: #6ce9ab;">#6ce9ab</td>
+                            <td style="background: #072a1c;">#072a1c</td>
+                            <td style="background: #1f6f4c;">#1f6f4c</td>
+                        </tr>
+                        <tr>
+                            <td>Failed/Timeout</td>
+                            <td style="color: #ff9e99;">#ff9e99</td>
+                            <td style="background: #3b1212;">#3b1212</td>
+                            <td style="background: #7a271a;">#7a271a</td>
+                        </tr>
+                        <tr>
+                            <td>Empty/Idle</td>
+                            <td style="color: #ffce7a;">#ffce7a</td>
+                            <td style="background: #3b2609;">#3b2609</td>
+                            <td style="background: #7a4c0b;">#7a4c0b</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section class="ds-section">
+                <h2>Typography</h2>
+                <ul class="ds-typography-list">
+                    <li><strong>Sans-serif:</strong> Inter (primary), IBM Plex Sans (fallback), System Sans.</li>
+                    <li><strong>Headers:</strong> font-semibold, tracking-tight.</li>
+                    <li><strong>UI Text:</strong> Text-sm (14px) for general interface components.</li>
+                    <li><strong>Metadata (KPI):</strong> Text-xs (12px), hsl(var(--muted-foreground)).</li>
+                    <li><strong>Status/Labels:</strong> Text-[0.76rem] (approx 12px), font-700, Uppercase, letter-spacing: 0.02em.</li>
+                </ul>
+            </section>
+
+            <section class="ds-section">
+                <h2>Layout Specs</h2>
+                <ul class="ds-spec-list">
+                    <li><strong>Dashboard Grid:</strong> 2-column layout (360px sidebar + flexible gallery).</li>
+                    <li><strong>Masonry Grid:</strong> column-count: 3 (Desktop), 2 (Tablet), 1 (Mobile).</li>
+                    <li><strong>Sidebar (Creation Console):</strong> Sticky, width: 360px.</li>
+                </ul>
+            </section>
+        </main>
+
+        <footer class="ds-footer">
+            <p>Last updated: 2026-04-14 | Version 1.1</p>
+        </footer>
+    </div>
+</body>
+</html>

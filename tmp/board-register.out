@@ -1,0 +1,3 @@
+{"registeredNode":{"nodeId":"fedora","machineId":"fedora","capabilities":["generate","upload","comfyui","ollama","metadata"],"status":"online","registeredAt":"2026-04-09T14:09:21.723Z","lastSeenAt":"2026-04-09T14:38:08.113Z","updatedAt":"2026-04-09T14:38:08.113Z"},"connectionToken":"pct_bridge_d404344d_secret_449196a4"}
+Set NODE_ID=fedora to match the registered node id before polling.
+Set CONNECTION_TOKEN to the returned token before polling.
