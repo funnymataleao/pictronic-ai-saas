@@ -11,17 +11,12 @@ import {
   SheetDescription,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from "@/components/ui/sheet";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loader2 } from "lucide-react";
 
-interface RegisterSheetProps {
-  trigger?: React.ReactNode;
-}
-
-export function RegisterSheet({ trigger }: RegisterSheetProps) {
-  const { isRegisterOpen, closeRegister, openLogin, openRegister } = useAuth();
+export function RegisterSheet() {
+  const { isRegisterOpen, closeRegister, openLogin } = useAuth();
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
@@ -69,8 +64,7 @@ export function RegisterSheet({ trigger }: RegisterSheetProps) {
   };
 
   return (
-    <Sheet open={isRegisterOpen} onOpenChange={(open) => open ? openRegister() : closeRegister()}>
-      {trigger && <SheetTrigger asChild>{trigger}</SheetTrigger>}
+    <Sheet open={isRegisterOpen} onOpenChange={(open) => !open && closeRegister()}>
       <SheetContent side="right" className="w-full sm:max-w-lg bg-neutral-900 border-white/10">
         <SheetHeader>
           <SheetTitle className="text-white">Создание аккаунта</SheetTitle>
@@ -92,39 +86,15 @@ export function RegisterSheet({ trigger }: RegisterSheetProps) {
               )}
               <div className="space-y-2">
                 <Label htmlFor="reg-email">Email</Label>
-                <Input
-                  id="reg-email"
-                  type="email"
-                  placeholder="name@example.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className="bg-white/5 border-white/20"
-                />
+                <Input id="reg-email" type="email" placeholder="name@example.com" value={email} onChange={(e) => setEmail(e.target.value)} required className="bg-white/5 border-white/20" />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="reg-password">Пароль</Label>
-                <Input
-                  id="reg-password"
-                  type="password"
-                  placeholder="Создайте пароль"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  className="bg-white/5 border-white/20"
-                />
+                <Input id="reg-password" type="password" placeholder="Создайте пароль" value={password} onChange={(e) => setPassword(e.target.value)} required className="bg-white/5 border-white/20" />
               </div>
               <div className="space-y-2">
                 <Label htmlFor="confirm-password">Подтверждение пароля</Label>
-                <Input
-                  id="confirm-password"
-                  type="password"
-                  placeholder="Повторите пароль"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                  required
-                  className="bg-white/5 border-white/20"
-                />
+                <Input id="confirm-password" type="password" placeholder="Повторите пароль" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} required className="bg-white/5 border-white/20" />
               </div>
             </CardContent>
             <CardFooter className="flex flex-col space-y-4">
@@ -140,24 +110,12 @@ export function RegisterSheet({ trigger }: RegisterSheetProps) {
                   <span className="bg-neutral-900 px-2 text-white/40">или</span>
                 </div>
               </div>
-              <Button
-                type="button"
-                variant="outline"
-                className="w-full border-white/20 hover:bg-white/5"
-                onClick={handleGoogleRegister}
-              >
+              <Button type="button" variant="outline" className="w-full border-white/20 hover:bg-white/5" onClick={handleGoogleRegister}>
                 Зарегистрироваться с Google
               </Button>
               <p className="text-center text-sm text-white/60">
                 Уже есть аккаунт?{" "}
-                <button
-                  type="button"
-                  className="text-white hover:underline focus:outline-none"
-                  onClick={() => {
-                    closeRegister();
-                    openLogin();
-                  }}
-                >
+                <button type="button" className="text-white hover:underline focus:outline-none" onClick={() => { closeRegister(); openLogin(); }}>
                   Войти
                 </button>
               </p>

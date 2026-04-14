@@ -1,12 +1,14 @@
 "use client";
 
 import * as React from "react";
+import { useAuth } from "./auth-provider";
 import { LoginSheet } from "./login-sheet";
 import { RegisterSheet } from "./register-sheet";
 import { Button } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
 
 export function AuthButtons({ isAuthenticated = false }) {
+  const { openLogin, openRegister } = useAuth();
   const [isLoggedIn, setIsLoggedIn] = React.useState(isAuthenticated);
 
   const handleLogout = async () => {
@@ -25,21 +27,27 @@ export function AuthButtons({ isAuthenticated = false }) {
 
   return (
     <div className="flex items-center gap-2">
-      <LoginSheet 
-        trigger={
-          <Button variant="ghost" size="sm" className="text-white/80 hover:text-white hover:bg-white/5">
-            Вход
-          </Button>
-        } 
-      />
+      <Button 
+        variant="ghost" 
+        size="sm" 
+        className="text-white/80 hover:text-white hover:bg-white/5"
+        onClick={() => openLogin()}
+      >
+        Вход
+      </Button>
       
-      <RegisterSheet 
-        trigger={
-          <Button variant="default" size="sm" className="bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500">
-            Регистрация
-          </Button>
-        } 
-      />
+      <Button 
+        variant="default" 
+        size="sm" 
+        className="bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500"
+        onClick={() => openRegister()}
+      >
+        Регистрация
+      </Button>
+
+      {/* Окна рендерятся отдельно и слушают контекст */}
+      <LoginSheet />
+      <RegisterSheet />
     </div>
   );
 }
