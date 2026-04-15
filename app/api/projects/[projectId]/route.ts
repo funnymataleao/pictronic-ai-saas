@@ -1,4 +1,5 @@
 import { apiError, jsonOk } from "@/lib/api/http";
+import { requireAuth } from "@/lib/api/auth";
 import { listNodeStatuses } from "@/lib/bridge/runtime";
 import { listAssets, summarizeProjectAssets, summarizeQueueHealth } from "@/lib/integrations/runtime";
 
@@ -32,6 +33,7 @@ function summarizeSurfaceState(params: {
 
 export async function GET(request: Request, context: { params: { projectId: string } }) {
   try {
+    await requireAuth();
     const projectId = context.params.projectId;
     const summary = summarizeProjectAssets(projectId);
     const orderedAssets = listAssets(projectId);

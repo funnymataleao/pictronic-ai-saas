@@ -1,5 +1,6 @@
 import { NextRequest } from "next/server";
 import { apiError, asOptionalString, jsonOk, parseJsonBody, requireString } from "@/lib/api/http";
+import { requireAuth } from "@/lib/api/auth";
 import { fakeId, nowIso } from "@/lib/api/mock-store";
 import { listProjectIds, summarizeProjectAssets } from "@/lib/integrations/runtime";
 
@@ -11,6 +12,7 @@ function projectNameFromId(projectId: string): string {
 
 export async function GET() {
   try {
+    await requireAuth();
     const projectIds = listProjectIds();
 
     return jsonOk({
@@ -34,6 +36,7 @@ export async function GET() {
 
 export async function POST(request: NextRequest) {
   try {
+    await requireAuth();
     const body = await parseJsonBody(request);
     const name = requireString(body.name, "name", { max: 160 });
 

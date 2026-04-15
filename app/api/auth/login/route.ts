@@ -1,18 +1,15 @@
-import { NextResponse } from "next/server";
+import { NextRequest } from "next/server";
+import { ApiError, apiError, jsonOk, parseJsonBody, requireString } from "@/lib/api/http";
 import { createServerClient } from "@/lib/supabase/server";
+import { setSessionCookie } from "@/lib/api/auth";
 
 export const dynamic = "force-dynamic";
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
-    const { email, password } = await request.json();
-
-    if (!email || !password) {
-      return NextResponse.json(
-        { ok: false, error: "Email and password required" },
-        { status: 400 }
-      );
-    }
+    const body = await parseJsonBody(request);
+    const email = requireString(body.email, "email", { max: 320 });
+    const password = requireString(body.password, "password", { min: 6, max: 1024 });
 
     const supabase = await createServerClient();
 
@@ -21,34 +18,26 @@ export async function POST(request: Request) {
       password,
     });
 
-    if (error) {
-      return NextResponse.json(
-        { ok: false, error: error.message },
-        { status: 401 }
+    if (error || !data.user || !data.session?.access_token) {
+      throw new ApiError(
+        401,
+        "AUTH_INVALID_CREDENTIALS",
+        "Invalid email or password",
+        error?.message ?? null
       );
     }
 
-    const response = NextResponse.json({
-      ok: true,
-      data: { authenticated: true, user: data.user },
+    const response = jsonOk({
+      authenticated: true,
+      user: {
+        id: data.user.id,
+        email: data.user.email ?? "",
+      },
     });
-
-    if (data.session) {
-      response.cookies.set("pictronic_session", data.session.access_token, {
-        httpOnly: true,
-        sameSite: "lax",
-        secure: process.env.NODE_ENV === "production",
-        path: "/",
-        maxAge: 60 * 60 * 24 * 7,
-      });
-    }
+    setSessionCookie(response, data.session.access_token);
 
     return response;
   } catch (error) {
-    console.error("Login error:", error);
-    return NextResponse.json(
-      { ok: false, error: "Internal server error" },
-      { status: 500 }
-    );
+    return apiError(error);
   }
 }

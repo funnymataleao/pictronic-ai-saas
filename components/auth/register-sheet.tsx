@@ -20,22 +20,31 @@ export function RegisterSheet() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
-  const [isLoading, setIsLoading] = React.useState(false);
+  const [isPasswordLoading, setIsPasswordLoading] = React.useState(false);
+  const [isGoogleLoading, setIsGoogleLoading] = React.useState(false);
   const [error, setError] = React.useState("");
+
+  const getNextPath = React.useCallback(() => {
+    if (typeof window === "undefined") {
+      return "/";
+    }
+    const next = new URLSearchParams(window.location.search).get("next");
+    return next && next.startsWith("/") ? next : "/";
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setIsLoading(true);
+    setIsPasswordLoading(true);
     setError("");
 
     if (password !== confirmPassword) {
       setError("Пароли не совпадают");
-      setIsLoading(false);
+      setIsPasswordLoading(false);
       return;
     }
 
     try {
-      const res = await fetch("/api/auth/register", {
+      const res = await fetch("/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -47,19 +56,32 @@ export function RegisterSheet() {
       }
 
       closeRegister();
-      window.location.reload();
+      window.location.assign(getNextPath());
     } catch (err) {
       setError(err instanceof Error ? err.message : "Registration failed");
     } finally {
-      setIsLoading(false);
+      setIsPasswordLoading(false);
     }
   };
 
   const handleGoogleRegister = async () => {
-    const res = await fetch("/api/auth/google", { method: "POST" });
-    const data = await res.json();
-    if (data.url) {
-      window.location.href = data.url;
+    setIsGoogleLoading(true);
+    setError("");
+    try {
+      const next = encodeURIComponent(getNextPath());
+      const res = await fetch(`/api/auth/google?next=${next}`, { method: "POST" });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || "Google registration failed");
+      }
+      if (data.url) {
+        window.location.href = data.url;
+        return;
+      }
+      throw new Error("Google registration URL is missing");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Google registration failed");
+      setIsGoogleLoading(false);
     }
   };
 
@@ -98,8 +120,8 @@ export function RegisterSheet() {
               </div>
             </CardContent>
             <CardFooter className="flex flex-col space-y-4">
-              <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+              <Button type="submit" className="w-full" disabled={isPasswordLoading || isGoogleLoading}>
+                {isPasswordLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 Зарегистрироваться
               </Button>
               <div className="relative w-full">
@@ -110,7 +132,14 @@ export function RegisterSheet() {
                   <span className="bg-neutral-900 px-2 text-white/40">или</span>
                 </div>
               </div>
-              <Button type="button" variant="outline" className="w-full border-white/20 hover:bg-white/5" onClick={handleGoogleRegister}>
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full border-white/20 hover:bg-white/5"
+                onClick={handleGoogleRegister}
+                disabled={isPasswordLoading || isGoogleLoading}
+              >
+                {isGoogleLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
                 Зарегистрироваться с Google
               </Button>
               <p className="text-center text-sm text-white/60">

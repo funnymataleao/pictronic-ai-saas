@@ -1,18 +1,16 @@
-import { NextResponse } from "next/server";
+import { NextRequest } from "next/server";
+import { ApiError, apiError, jsonOk, parseJsonBody, requireString } from "@/lib/api/http";
 import { createServerClient } from "@/lib/supabase/server";
+import { sanitizeNextPath, setSessionCookie } from "@/lib/api/auth";
 
 export const dynamic = "force-dynamic";
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
-    const { email, password } = await request.json();
-
-    if (!email || !password) {
-      return NextResponse.json(
-        { ok: false, error: "Email and password required" },
-        { status: 400 }
-      );
-    }
+    const body = await parseJsonBody(request);
+    const email = requireString(body.email, "email", { max: 320 });
+    const password = requireString(body.password, "password", { min: 6, max: 1024 });
+    const nextPath = sanitizeNextPath(request.nextUrl.searchParams.get("next"), "/");
 
     const supabase = await createServerClient();
 
@@ -20,41 +18,38 @@ export async function POST(request: Request) {
       email,
       password,
       options: {
-        emailRedirectTo: `${request.headers.get("origin")}/api/auth/callback`,
+        emailRedirectTo: `${request.nextUrl.origin}/api/auth/callback?next=${encodeURIComponent(nextPath)}`,
       },
     });
 
     if (error) {
-      return NextResponse.json(
-        { ok: false, error: error.message },
-        { status: 400 }
+      throw new ApiError(
+        400,
+        "AUTH_SIGNUP_FAILED",
+        "Unable to create account",
+        error.message
       );
     }
 
-    const response = NextResponse.json({
-      ok: true,
-      data: {
-        user: data.user,
-        session: data.session,
+    const response = jsonOk(
+      {
+        user: data.user
+          ? {
+              id: data.user.id,
+              email: data.user.email ?? "",
+            }
+          : null,
+        requiresEmailConfirmation: data.session == null,
       },
-    });
+      201
+    );
 
-    if (data.session) {
-      response.cookies.set("pictronic_session", data.session.access_token, {
-        httpOnly: true,
-        sameSite: "lax",
-        secure: process.env.NODE_ENV === "production",
-        path: "/",
-        maxAge: 60 * 60 * 24 * 7,
-      });
+    if (data.session?.access_token) {
+      setSessionCookie(response, data.session.access_token);
     }
 
     return response;
   } catch (error) {
-    console.error("Signup error:", error);
-    return NextResponse.json(
-      { ok: false, error: "Internal server error" },
-      { status: 500 }
-    );
+    return apiError(error);
   }
 }

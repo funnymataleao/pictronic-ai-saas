@@ -1,16 +1,14 @@
-import { cookies } from "next/headers";
 import { ProjectsSurface } from "@/components/projects-surface";
 import { PublicLanding } from "@/components/public-landing";
+import { getAuthContext } from "@/lib/api/auth";
 
-export default function HomePage() {
-  // Стандартная синхронная проверка куки (работает везде)
-  const cookieStore = cookies();
-  const isAuthenticated = cookieStore.get("pictronic_session")?.value === "1";
+export default async function HomePage() {
+  const auth = await getAuthContext();
+  const isAuthenticated = auth !== null;
   
   if (!isAuthenticated) {
     return <PublicLanding />;
   }
 
-  // Рендерим админку без передачи сломанных пропсов
   return <ProjectsSurface />;
 }

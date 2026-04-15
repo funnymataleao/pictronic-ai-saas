@@ -1,8 +1,10 @@
 import { NextRequest } from "next/server";
 import { apiError, parseJsonBody, requireString } from "@/lib/api/http";
+import { requireAuth } from "@/lib/api/auth";
 
 export async function POST(request: NextRequest) {
   try {
+    await requireAuth();
     const body = await parseJsonBody(request);
     const host = requireString(body.ftpHost, "ftpHost", { max: 255 });
     requireString(body.ftpLogin, "ftpLogin", { max: 128 });

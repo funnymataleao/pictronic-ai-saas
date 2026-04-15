@@ -1,10 +1,12 @@
 import { NextRequest } from "next/server";
 import { ApiError, apiError, getSearchParam, jsonOk } from "@/lib/api/http";
+import { requireAuth } from "@/lib/api/auth";
 import { listUploads } from "@/lib/integrations/runtime";
 import { UPLOAD_STATUSES } from "@/lib/api/types";
 
 export async function GET(request: NextRequest) {
   try {
+    await requireAuth();
     const projectId = getSearchParam(request, "projectId") ?? "project_demo";
     const status = getSearchParam(request, "status");
 

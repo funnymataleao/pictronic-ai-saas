@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { SparklesCore } from "@/components/ui/sparkles";
 import { AuthButtons } from "@/components/auth/auth-buttons";
+import { useAuth } from "@/components/auth/auth-provider";
 import {
   MobileNav,
   MobileNavHeader,
@@ -73,6 +74,10 @@ const faqItems = [
 ];
 
 const footerLinks = [
+  { label: "Design System", href: "/design-system" },
+  { label: "Foundations", href: "/design-system/foundations" },
+  { label: "Components", href: "/design-system/components" },
+  { label: "Governance", href: "/design-system/governance" },
   { label: "Documentation", href: "#documentation" },
   { label: "Terms of use", href: "#terms" },
   { label: "Guardrails", href: "#proof" }
@@ -80,22 +85,15 @@ const footerLinks = [
 
 export function PublicLanding() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { openLogin } = useAuth();
   const navItems = [
+    { name: "Design System", link: "/design-system" },
     { name: "Features", link: "#features" },
     { name: "Workflow", link: "#workflow" },
     { name: "Pricing", link: "#pricing" },
     { name: "FAQ", link: "#faq" },
     { name: "Guardrails", link: "#proof" }
   ];
-
-  async function onLogin() {
-    try {
-      await fetch("/api/auth/login", { method: "POST" });
-      window.location.assign("/");
-    } catch {
-      window.location.assign("/");
-    }
-  }
 
   return (
     <main className="landing-noir">
@@ -166,7 +164,7 @@ export function PublicLanding() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, ease: "easeOut", delay: 0.2 }}
           >
-            <Button onClick={() => void onLogin()} className="landing-login-btn landing-hero-cta-primary">
+            <Button onClick={() => openLogin()} className="landing-login-btn landing-hero-cta-primary">
               Start in Workspace
             </Button>
             <a className="landing-hero-cta-secondary" href="#proof">
@@ -296,6 +294,13 @@ export function PublicLanding() {
         <p className="landing-docs-text">
           Runtime contracts, guardrails, and integration runbooks are available inside the authenticated workspace.
         </p>
+        <div className="landing-docs-text" style={{ marginTop: "1rem" }}>
+          <p style={{ marginBottom: "0.5rem" }}>Design system pages:</p>
+          <p><a href="/design-system">http://127.0.0.1:3000/design-system</a></p>
+          <p><a href="/design-system/foundations">http://127.0.0.1:3000/design-system/foundations</a></p>
+          <p><a href="/design-system/components">http://127.0.0.1:3000/design-system/components</a></p>
+          <p><a href="/design-system/governance">http://127.0.0.1:3000/design-system/governance</a></p>
+        </div>
       </section>
 
       <section id="terms" className="container landing-section landing-terms landing-tier-aa" aria-label="Terms">

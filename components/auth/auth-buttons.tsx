@@ -7,14 +7,16 @@ import { RegisterSheet } from "./register-sheet";
 import { Button } from "@/components/ui/button";
 import { LogOut } from "lucide-react";
 
-export function AuthButtons({ isAuthenticated = false }) {
+type AuthButtonsProps = {
+  isAuthenticated?: boolean;
+};
+
+export function AuthButtons({ isAuthenticated = false }: AuthButtonsProps) {
   const { openLogin, openRegister } = useAuth();
-  const [isLoggedIn, setIsLoggedIn] = React.useState(isAuthenticated);
+  const isLoggedIn = isAuthenticated;
 
   const handleLogout = async () => {
-    await fetch("/api/auth/logout", { method: "GET" });
-    setIsLoggedIn(false);
-    window.location.reload();
+    window.location.assign("/api/auth/logout");
   };
 
   if (isLoggedIn) {

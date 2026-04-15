@@ -10,10 +10,12 @@ import {
 } from "@/lib/api/http";
 import { withIdempotentReplay } from "@/lib/api/idempotency-store";
 import { nowIso } from "@/lib/api/mock-store";
+import { requireAuth } from "@/lib/api/auth";
 import { enqueueUploadJobs } from "@/lib/integrations/runtime";
 
 export async function POST(request: NextRequest) {
   try {
+    await requireAuth();
     const idempotencyKey = requireIdempotencyKey(request);
     const body = await parseJsonBody(request);
     const provider = requireString(body.provider ?? "adobe", "provider", { max: 20 }).toLowerCase();

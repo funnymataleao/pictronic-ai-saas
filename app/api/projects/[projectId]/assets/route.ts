@@ -1,5 +1,6 @@
 import { NextRequest } from "next/server";
 import { ApiError, apiError, getSearchParam, jsonOk } from "@/lib/api/http";
+import { requireAuth } from "@/lib/api/auth";
 import { ASSET_STATUSES } from "@/lib/api/types";
 import { listAssets } from "@/lib/integrations/runtime";
 
@@ -39,6 +40,7 @@ function parseLimit(value: string | undefined): number {
 
 export async function GET(request: NextRequest, context: { params: { projectId: string } }) {
   try {
+    await requireAuth();
     const status = getSearchParam(request, "status");
     const cursor = getSearchParam(request, "cursor");
     const limit = parseLimit(getSearchParam(request, "limit"));

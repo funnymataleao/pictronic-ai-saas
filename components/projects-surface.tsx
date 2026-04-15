@@ -8,6 +8,7 @@ import { useInfrastructureHealth } from "@/lib/api/use-infrastructure-health";
 import { ApiError, api } from "@/lib/api/client";
 import type { Project } from "@/lib/api/contracts";
 import type { InfrastructureState } from "@/lib/api/health";
+import { AuthButtons } from "@/components/auth/auth-buttons";
 
 function getErrorMessage(error: unknown): string {
   if (error instanceof ApiError) {
@@ -104,9 +105,7 @@ export function ProjectsSurface({ previewInfraState = null }: ProjectsSurfacePro
           <Link className="btn btn-quiet" href="/admin">
             Admin Console
           </Link>
-          <a className="btn btn-quiet" href="/api/auth/logout">
-            Logout
-          </a>
+          <AuthButtons isAuthenticated />
         </div>
       }
     >
