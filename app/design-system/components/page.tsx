@@ -56,16 +56,16 @@ export default function ComponentsPage() {
           
           <h3 style={{ fontSize: '1.25rem', fontWeight: 600, margin: '1.5rem 0 1rem', color: 'rgba(255, 255, 255, 0.9)' }}>Brand Button</h3>
           <div style={{ padding: '1.5rem', background: '#0a0a0a', borderRadius: '12px', margin: '1rem 0' }}>
-            <button style={{ background: '#ffffff', color: '#000000', border: 'none', padding: '0.5rem 1.5rem', borderRadius: '9999px', fontWeight: 500, cursor: 'pointer' }}>
+            <span style={{ display: 'inline-block', background: '#ffffff', color: '#000000', border: 'none', padding: '0.5rem 1.5rem', borderRadius: '9999px', fontWeight: 500 }}>
               Generate
-            </button>
+            </span>
           </div>
 
           <h3 style={{ fontSize: '1.25rem', fontWeight: 600, margin: '1.5rem 0 1rem', color: 'rgba(255, 255, 255, 0.9)' }}>Quiet Button</h3>
           <div style={{ padding: '1.5rem', background: '#0a0a0a', borderRadius: '12px', margin: '1rem 0' }}>
-            <button style={{ background: '#1a1a1a', color: '#ffffff', border: '1px solid #333333', padding: '0.5rem 1.5rem', borderRadius: '12px', fontWeight: 500, cursor: 'pointer' }}>
+            <span style={{ display: 'inline-block', background: '#1a1a1a', color: '#ffffff', border: '1px solid #333333', padding: '0.5rem 1.5rem', borderRadius: '12px', fontWeight: 500 }}>
               Cancel
-            </button>
+            </span>
           </div>
         </section>
 
